@@ -1,6 +1,6 @@
 # SM Firebird Installer
 
-**Public Repository**
+**This is a Public Repository**
 
 The SM Firebird Installer automates the installation process for Firebird 4.0.1 32 bit on Windows with specific criteria required by SM.
 
