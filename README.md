@@ -21,7 +21,7 @@ You can download the installer from the [release page](https://github.com/SMCont
 ### Run via PowerShell
 
 You can also run the installer directly on the target machine using the following PowerShell command.
-This command will determine which is the latest release version, download that and install it.
+This command will determine which is the latest release version, download and install it.
 
 ```powershell
 Invoke-RestMethod -Uri "https://api.github.com/repos/SMControl/SM_Firebird_Installer/releases/latest" | 
