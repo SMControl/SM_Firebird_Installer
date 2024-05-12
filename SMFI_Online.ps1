@@ -16,6 +16,7 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     # Part 2 - Download Firebird Installer
     ################################
+    Write-Output ("`n" * 10)
     Write-Output "Downloading Firebird Installer..."
     $installerUrl = "https://github.com/SMControl/SM_Firebird_Installer/raw/main/Firebird-4.0.1.exe"
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
