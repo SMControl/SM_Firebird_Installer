@@ -1,6 +1,7 @@
 ################################
 # Part 1 - Pre Install Check
 ################################
+# Check if running as admin
 Write-Output "Checking if running as administrator..."
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
     Write-Error "Please run this script as an administrator."
@@ -35,6 +36,7 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     # Part 5 - Adjusting permissions
     ################################
+    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C | Out-Null
     Write-Output "Adjusting permissions..."
     icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C >$null
 
@@ -54,7 +56,6 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     # Part 8 - Installation Successful
     ################################
     Write-Output "Firebird installation completed successfully."
-
     ################################
     # Part 9 - Summary
     ################################
@@ -64,11 +65,9 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     Write-Output "- Permissions adjusted"
     Write-Output "- Firebird service started"
     Write-Output "- Temporary installer file removed"
-
 } else {
     Write-Output "Firebird is already installed. Exiting script..."
 }
-
 # Wait for user input to close the script
 Write-Output "Press any key to exit..."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
