@@ -31,7 +31,7 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     # Part 5 - Adjusting permissions
     ################################
-    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C
+    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C | Out-Null
 
     ################################
     # Part 6 - Start Firebird service
