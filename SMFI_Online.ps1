@@ -1,6 +1,8 @@
 ################################
 # Part 1 - Pre Install Check
 ################################
+# Jump down a bit to create space for download bar
+Write-Output ("`n" * 10)
 # Check if running as admin
 Write-Output "Checking if running as administrator..."
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
@@ -16,7 +18,6 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     # Part 2 - Download Firebird Installer
     ################################
-    Write-Output ("`n" * 10)
     Write-Output "Downloading Firebird Installer..."
     $installerUrl = "https://github.com/SMControl/SM_Firebird_Installer/raw/main/Firebird-4.0.1.exe"
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
