@@ -1,8 +1,8 @@
 ################################
 # Part 1 - Pre Install Check
 ################################
-# Jump down a bit to create space for download bar
-Write-Output ("`n" * 6)
+# Jump down a bit to create space for download bar [DISABLED]
+# Write-Output ("`n" * 6)
 # Check if running as admin
 Write-Output "Checking if running as administrator..."
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
