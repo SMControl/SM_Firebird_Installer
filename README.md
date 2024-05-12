@@ -17,7 +17,7 @@ Copy into Admin Powershell:
 ```
 irm https://github.com/SMControl/SM_Firebird_Installer/raw/main/SMFI_Online.ps1 | iex
 ```
-
+![Firebird Installation Demo](https://github.com/SMControl/SM_Firebird_Installer/raw/main/installation_demo.gif)
 
 ### Offline Installer
 Copy onto target machine and run as Admin. See the [Release Page](https://github.com/SMControl/SM_Firebird_Installer/releases).
