@@ -1,6 +1,6 @@
 # SM Firebird Installer
 
-**This is a Public Repository**
+**Please note this is a Public Repository**
 
 Automates the SM installation of Firebird.
 
