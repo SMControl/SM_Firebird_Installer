@@ -21,8 +21,6 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
     Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath *> $null
 
-
-
     ################################
     # Part 3 - Installation of Firebird with scripted parameters
     ################################
