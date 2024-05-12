@@ -19,13 +19,14 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     Write-Output "Downloading Firebird Installer..."
     $installerUrl = "https://github.com/SMControl/SM_Firebird_Installer/raw/main/Firebird-4.0.1.exe"
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
-    Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+    Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -Quiet
+
 
     ################################
     # Part 3 - Installation of Firebird with scripted parameters
     ################################
-    Write-Output "Starting Firebird installation..."
-    Start-Process -FilePath $installerPath -ArgumentList "/LANG=en", "/NORESTART", "/SILENT", "/MERGETASKS=UseClassicServerTask,UseServiceTask,CopyFbClientAsGds32Task" -Wait
+    Write-Output "Installing Firebird..."
+    Start-Process -FilePath $installerPath -ArgumentList "/LANG=en", "/NORESTART", "/VERYSILENT", "/MERGETASKS=UseClassicServerTask,UseServiceTask,CopyFbClientAsGds32Task" -Wait
 
     ################################
     # Part 4 - Modify firebird.conf
