@@ -2,7 +2,7 @@
 
 **Please note this is a Public Repository**
 
-Automates the correct SM installation and configuration of Firebird server in ~6-10 seconds.
+Automates the correct SM installation and configuration of Firebird server.
 
 ![Firebird Installation Demo](https://github.com/SMControl/SM_Firebird_Installer/blob/main/SM_Firebird_Installer_Example_GIF.gif)
 
