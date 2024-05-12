@@ -43,6 +43,21 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     Remove-Item $installerPath
 
+    ################################
+    # Part 8 - Installation Successful
+    ################################
+    Write-Output "Firebird installation completed successfully."
+
+    ################################
+    # Part 9 - Summary
+    ################################
+    Write-Output "Installation Summary:"
+    Write-Output "- Firebird installed at 'C:\Program Files (x86)\Firebird'"
+    Write-Output "- firebird.conf modified"
+    Write-Output "- Permissions adjusted"
+    Write-Output "- Firebird service started"
+    Write-Output "- Temporary installer file removed"
+
 } else {
     Write-Output "Firebird is already installed. Exiting script..."
 }
