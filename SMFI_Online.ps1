@@ -61,3 +61,7 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
 } else {
     Write-Output "Firebird is already installed. Exiting script..."
 }
+
+# Wait for user input to close the script
+Write-Output "Press any key to exit..."
+$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
