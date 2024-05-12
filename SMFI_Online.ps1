@@ -18,7 +18,12 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     Write-Output "Downloading Firebird Installer..."
     $installerUrl = "https://github.com/SMControl/SM_Firebird_Installer/raw/main/Firebird-4.0.1.exe"
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
-    Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath -UseBasicParsing -ProgressPreference SilentlyContinue
+    Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+
+    ################################
+    # Display Progress
+    ################################
+    Write-Output "Download complete."
 
     ################################
     # Part 3 - Installation of Firebird with scripted parameters
@@ -35,40 +40,4 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     ################################
     # Part 5 - Adjusting permissions
     ################################
-    Write-Output "Adjusting permissions..."
-    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C >$null
-
-    ################################
-    # Part 6 - Start Firebird service
-    ################################
-    Write-Output "Starting Firebird service..."
-    Start-Service -Name "FirebirdServerDefaultInstance"
-
-    ################################
-    # Part 7 - Cleanup
-    ################################
-    Write-Output "Cleaning up temporary files..."
-    Remove-Item $installerPath
-
-    ################################
-    # Part 8 - Installation Successful
-    ################################
-    Write-Output "Firebird installation completed successfully."
-
-    ################################
-    # Part 9 - Summary
-    ################################
-    Write-Output "Installation Summary:"
-    Write-Output "- Firebird installed at 'C:\Program Files (x86)\Firebird'"
-    Write-Output "- firebird.conf modified"
-    Write-Output "- Permissions adjusted"
-    Write-Output "- Firebird service started"
-    Write-Output "- Temporary installer file removed"
-
-} else {
-    Write-Output "Firebird is already installed. Exiting script..."
-}
-
-# Wait for user input to close the script
-Write-Output "Press any key to exit..."
-$null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
+    Write-Output "Adjusting 
