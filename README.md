@@ -14,7 +14,7 @@ Automates the correct SM installation and configuration of Firebird server.
 
 ## Usage
 
-### Online Install [Reccomended]
+### Online Install
 Copy into Admin Powershell:
 ```
 irm https://raw.githubusercontent.com/SMControl/SM_Firebird_Installer/main/SMFI_Online.ps1 | iex
