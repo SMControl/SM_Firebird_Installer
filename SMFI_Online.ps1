@@ -1,72 +1,91 @@
-################################
+# InstallFirebirdWithDownload.ps1
+# This script checks for administrative privileges, verifies the existence of a directory, downloads the Firebird installer, installs Firebird if not already installed, modifies the firebird.conf file, adjusts permissions, starts the Firebird service, and cleans up temporary files.
+# ---
+# version 1.02
+# Summary of Changes and fixes since last version
+# - Removed the summary section
+# - Made successful lines green and error/problem lines red
+
+# Function to write output in green
+function Write-Success {
+    param (
+        [string]$message
+    )
+    Write-Host $message -ForegroundColor Green
+}
+
+# Function to write output in red
+function Write-ErrorOutput {
+    param (
+        [string]$message
+    )
+    Write-Host $message -ForegroundColor Red
+}
+
 # Part 1 - Pre Install Check
-################################
-# Jump down a bit to create space for download bar [DISABLED]
-# Write-Output ("`n" * 6)
+# ------------------------------------------------
+
 # Check if running as admin
 Write-Output "Checking if running as administrator..."
 if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-    Write-Error "Please run this script as an administrator."
+    Write-ErrorOutput "Please run this script as an administrator."
     exit 1
 }
 
-Write-Output "Checking if the directory 'C:\Program Files (x86)\Firebird' exists..."
 # Check if the directory exists
+Write-Output "Checking if the directory 'C:\Program Files (x86)\Firebird' exists..."
 if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     Write-Output "The directory 'C:\Program Files (x86)\Firebird' does NOT exist. Proceeding with the installation..."
 
-    ################################
     # Part 2 - Download Firebird Installer
-    ################################
+    # ------------------------------------------------
+
     Write-Output "Downloading Firebird Installer..."
     $installerUrl = "https://github.com/SMControl/SM_Firebird_Installer/raw/main/Firebird-4.0.1.exe"
     $installerPath = "$env:TEMP\Firebird-4.0.1.exe"
     Invoke-WebRequest -Uri $installerUrl -OutFile $installerPath
+    Write-Success "Firebird Installer downloaded successfully."
 
-    ################################
     # Part 3 - Installation of Firebird with scripted parameters
-    ################################
+    # ------------------------------------------------
+
     Write-Output "Installing Firebird..."
     Start-Process -FilePath $installerPath -ArgumentList "/LANG=en", "/NORESTART", "/VERYSILENT", "/MERGETASKS=UseClassicServerTask,UseServiceTask,CopyFbClientAsGds32Task" -Wait
+    Write-Success "Firebird installed successfully."
 
-    ################################
     # Part 4 - Modify firebird.conf
-    ################################
+    # ------------------------------------------------
+
     Write-Output "Modifying firebird.conf..."
     (Get-Content "C:\Program Files (x86)\Firebird\Firebird_4_0\firebird.conf") -replace '#DataTypeCompatibility.*', 'DataTypeCompatibility = 3.0' | Set-Content "C:\Program Files (x86)\Firebird\Firebird_4_0\firebird.conf"
+    Write-Success "firebird.conf modified successfully."
 
-    ################################
     # Part 5 - Adjusting permissions
-    ################################
-    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C | Out-Null
-    Write-Output "Adjusting permissions..."
-    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C >$null
+    # ------------------------------------------------
 
-    ################################
+    Write-Output "Adjusting permissions..."
+    icacls "C:\Program Files (x86)\Firebird" /grant "*S-1-1-0:(OI)(CI)F" /T /C | Out-Null
+    Write-Success "Permissions adjusted successfully."
+
     # Part 6 - Start Firebird service
-    ################################
+    # ------------------------------------------------
+
     Write-Output "Starting Firebird service..."
     Start-Service -Name "FirebirdServerDefaultInstance"
+    Write-Success "Firebird service started successfully."
 
-    ################################
     # Part 7 - Cleanup
-    ################################
+    # ------------------------------------------------
+
     Write-Output "Cleaning up temporary files..."
     Remove-Item $installerPath
+    Write-Success "Temporary files cleaned up successfully."
 
-    ################################
     # Part 8 - Installation Successful
-    ################################
-    Write-Output "Firebird installation completed successfully."
-    ################################
-    # Part 9 - Summary
-    ################################
-    Write-Output "Installation Summary:"
-    Write-Output "- Firebird installed at 'C:\Program Files (x86)\Firebird'"
-    Write-Output "- firebird.conf modified"
-    Write-Output "- Permissions adjusted"
-    Write-Output "- Firebird service started"
-    Write-Output "- Temporary installer file removed"
+    # ------------------------------------------------
+
+    Write-Success "Firebird installation completed successfully."
+
 } else {
     Write-Output "Firebird is already installed. Exiting script..."
 }
