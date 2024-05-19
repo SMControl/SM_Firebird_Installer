@@ -1,10 +1,9 @@
 # InstallFirebirdWithDownload.ps1
 # This script checks for administrative privileges, verifies the existence of a directory, downloads the Firebird installer, installs Firebird if not already installed, modifies the firebird.conf file, adjusts permissions, starts the Firebird service, and cleans up temporary files.
 # ---
-# version 1.02
+# version 1.03
 # Summary of Changes and fixes since last version
-# - Removed the summary section
-# - Made successful lines green and error/problem lines red
+# - Made "Firebird is already installed. Exiting script..." message in red
 
 # Function to write output in green
 function Write-Success {
@@ -24,6 +23,9 @@ function Write-ErrorOutput {
 
 # Part 1 - Pre Install Check
 # ------------------------------------------------
+
+# Jump down a bit to create space for download bar [DISABLED]
+# Write-Output ("`n" * 6)
 
 # Check if running as admin
 Write-Output "Checking if running as administrator..."
@@ -87,5 +89,5 @@ if (!(Test-Path "C:\Program Files (x86)\Firebird")) {
     Write-Success "Firebird installation completed successfully."
 
 } else {
-    Write-Output "Firebird is already installed. Exiting script..."
+    Write-ErrorOutput "Firebird is already installed. Exiting script..."
 }
