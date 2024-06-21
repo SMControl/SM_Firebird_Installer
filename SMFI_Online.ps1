@@ -1,11 +1,9 @@
 # InstallFirebirdWithDownload.ps1
 # This script checks for administrative privileges, verifies the existence of a directory, downloads the Firebird installer, installs Firebird if not already installed, modifies the firebird.conf file, adjusts permissions, starts the Firebird service, and cleans up temporary files.
 # ---
-# version 1.05
+# version 1.06
 # Summary of Changes and fixes since last version
-# - Modified script to continue with other checks if Firebird is already installed
-# - Removed unnecessary lines
-# - Updated message to say "tasks" instead of "checks"
+# - Added timer to measure and display the duration of the script execution
 
 # Function to write output in green
 function Write-Success {
@@ -22,6 +20,9 @@ function Write-ErrorOutput {
     )
     Write-Host $message -ForegroundColor Red
 }
+
+# Start timer
+$stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
 
 # Part 1 - Pre Install Check
 # ------------------------------------------------
@@ -89,3 +90,8 @@ Write-Success "Temporary files cleaned up successfully."
 # ------------------------------------------------
 
 Write-Success "Firebird installation completed successfully."
+
+# Stop timer
+$stopwatch.Stop()
+$elapsedTime = $stopwatch.Elapsed
+Write-Output ("Script execution time: {0} minutes and {1} seconds." -f $elapsedTime.Minutes, $elapsedTime.Seconds)
